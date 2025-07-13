@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -8,10 +8,25 @@ function LogInPage() {
         password: "",
     });
     const [error, setError] = useState("");
-
-
     const navigate = useNavigate();
 
+    useEffect(() => {
+    const handleFormData = () => {
+        if(localStorage.getItem("token")){
+            setFormdata({
+                email: dummyData.email,
+                password: dummyData.password,
+            })
+        }else {
+            setFormdata({
+                email: "",
+                password: "",
+            })
+        }
+    }
+    handleFormData();
+    },[]);
+    
     const dummyData = {
         email: "abc@gmail.com",
         password: "Abcd@1234",
